@@ -2,8 +2,8 @@
   "name": "adapt-aboutUs",
   "version": "2.1.0",
   "framework": ">=5.0.0",
-  "homepage": "https://github.com/LearningPool/adapt-aboutUs",
-  "issues": "https://github.com/LearningPool/adapt-aboutUs/issues",
+  "homepage": "https://github.com/HT2-Labs/adapt-contrib-aboutUs",
+  "issues": "https://github.com/HT2-Labs/adapt-contrib-aboutUs/issues",
   "authors": [
     "Chuck Lorenz <chuck.lorenz@clearlearning.tech>"
   ],

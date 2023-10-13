@@ -5,8 +5,6 @@
  * Code was based on adapt-contrib-glossary and adapt-contrib-resources
  */
 
-import ComponentView from 'core/js/views/componentView';
-
 define([
     'core/js/adapt'
 ], function(Adapt) {

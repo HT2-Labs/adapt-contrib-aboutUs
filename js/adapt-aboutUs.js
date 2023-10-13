@@ -5,6 +5,8 @@
  * Code was based on adapt-contrib-glossary and adapt-contrib-resources
  */
 
+import ComponentModel from 'core/js/models/componentModel';
+
 define([
     'core/js/adapt',
     './adapt-aboutUsView'

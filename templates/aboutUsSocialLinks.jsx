@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function aboutUsSocialLinks (props) {
+export default function AboutUsSocialLinks (props) {
     const {
-        _service,
-        _link
+      _link,
+      _service
     } = props
 
     return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import { classes } from 'core/js/reactHelpers';
 
-export default function aboutUsItem (props) {
+export default function AboutUsItem (props) {
     const {
         className,
         title,

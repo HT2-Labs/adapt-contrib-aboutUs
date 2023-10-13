@@ -21,8 +21,6 @@ define([
         },
 
         render: function() {
-            var template = Handlebars.templates["aboutUs"];
-            this.$el.html(template(this.model.toJSON()));
             this.renderAboutUsItems();
             _.defer(_.bind(function() {
                 this.postRender();
@@ -46,6 +44,8 @@ define([
         }
 
     });
+
+    AboutUsView.template = 'aboutUs.jsx'
 
     return AboutUsView;
 });

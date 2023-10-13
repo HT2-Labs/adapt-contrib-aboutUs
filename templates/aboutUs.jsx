@@ -1,7 +1,6 @@
 import React from 'react';
-import { compile, classes, templates, html } from 'core/js/reactHelpers';
 
-export default function AboutUs (props) {
+export default function aboutUs (props) {
     const {
         _graphic,
         headline
@@ -15,7 +14,7 @@ export default function AboutUs (props) {
                 }
                 <div className='aboutus__headline'>
                     <div className='aboutus__headline-inner' style={{width: _graphic.src ? auto : '100%'}}>
-                        {headline}
+                        {compile(headline)}
                     </div>
                 </div>
             </div>

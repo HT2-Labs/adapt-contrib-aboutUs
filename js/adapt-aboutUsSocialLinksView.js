@@ -22,9 +22,6 @@ define([
         },
 
         render: function() {
-            var modelData = this.model;
-            var template = Handlebars.templates["aboutUsSocialLinks"];
-            this.$el.html(template(modelData));
             _.defer(_.bind(function() {
                 this.postRender();
             }, this));
@@ -37,6 +34,8 @@ define([
         }
 
     });
+
+    AboutUsSocialLinksView.template = 'aboutUsSocialLinks.jsx';
 
     return AboutUsSocialLinksView;
 });

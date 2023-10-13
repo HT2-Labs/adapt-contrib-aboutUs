@@ -2,8 +2,8 @@ import React from 'react';
 
 export default function aboutUsSocialLinks (props) {
     const {
-        _graphic,
-        headline
+        _service,
+        _link
     } = props
 
     return (

@@ -39,8 +39,6 @@ define([
         },
 
         render: function() {
-            var template = Handlebars.templates['aboutUsItem'];
-            this.$el.html(template(this.model.toJSON()));
             _.defer(_.bind(function() {
                 this.postRender();
             }, this));
@@ -107,6 +105,8 @@ define([
         }
 
     });
+
+    AboutUsItemView.template = 'aboutUsItem.jsx';
 
     return AboutUsItemView;
 });

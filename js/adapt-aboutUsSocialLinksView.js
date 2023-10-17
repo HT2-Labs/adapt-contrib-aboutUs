@@ -35,7 +35,7 @@ define([
 
     });
 
-    AboutUsSocialLinksView.template = '../templates/aboutUsSocialLinks.jsx';
+    AboutUsSocialLinksView.template = 'aboutUsSocialLinks.jsx';
 
     return AboutUsSocialLinksView;
 });

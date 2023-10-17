@@ -6,7 +6,9 @@ export default function AboutUsItem (props) {
         className,
         title,
         description
-    } = props
+    } = props?.item
+
+    console.log(props)
 
     return (
         <div>

@@ -5,47 +5,48 @@
  * Code was based on adapt-contrib-glossary and adapt-contrib-resources
  */
 
-define([
-  'core/js/adapt',
-  './adapt-aboutUsItemView',
-  './adapt-aboutUsSocialLinksView'
-], function(Adapt, AboutUsItemView, SocialLinksView) {
+import Adapt from 'core/js/adapt';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { templates } from 'core/js/reactHelpers';
+import AboutUsItemView from './adapt-aboutUsItemView';
+import SocialLinksView from './adapt-aboutUsSocialLinksView';
 
-  var AboutUsView = Backbone.View.extend({
+class AboutUsView extends Backbone.View{
+  className() {
+    return 'aboutus'
+  }
 
-      className: "aboutus",
+  initialize() {
+    this.listenTo(Adapt, 'remove drawer:closed', this.remove);
+    this.render()
+  }
 
-      initialize: function() {
-          this.listenTo(Adapt, 'remove drawer:closed', this.remove);
-          this.render();
-      },
+  render() {
+    const data = {
+      ...this,
+      model: this.model.toJSON()
+    };
 
-      render: function() {
-          this.renderAboutUsItems();
-          _.defer(_.bind(function() {
-              this.postRender();
-          }, this));
-          return this;
-      },
+    ReactDOM.render(<templates.aboutUs {...data} />, this.el);
 
-      renderAboutUsItems: function() {
-          var $aboutUsItemContainer = this.$('.aboutus__items-container').empty();
-          _.each(this.collection.models, function(item, index) {
-              var itemView = new AboutUsItemView({model: item});
-              itemView.$el.appendTo($aboutUsItemContainer);
-          }, this);
-          new SocialLinksView({model: Adapt.course.get('_aboutUs')._socialLinks})
-              .$el.appendTo($aboutUsItemContainer);
-      },
+    _.defer(() => {
+      Adapt.trigger('view:render', this);
+      this.listenTo(Adapt, 'drawer:closed', this.remove);
+    });
 
-      postRender: function() {
-          this.listenTo(Adapt, 'drawer:openedItemView', this.remove);
-          this.listenTo(Adapt, 'drawer:triggerCustomView', this.remove);
-      }
+    return this;
+    }
 
-  });
+    renderAboutUsItems() {
+      var $aboutUsItemContainer = this.$('.aboutus__items-container').empty();
+      _.each(this.collection.models, function(item, index) {
+        var itemView = new AboutUsItemView({model: item});
+        itemView.$el.appendTo($aboutUsItemContainer);
+      }, this);
+      new SocialLinksView({model: Adapt.course.get('_aboutUs')._socialLinks})
+        .$el.appendTo($aboutUsItemContainer);
+    }
+  }
 
-  AboutUsView.template = 'aboutUs.jsx';
-
-  return AboutUsView;
-});
+export default AboutUsView;

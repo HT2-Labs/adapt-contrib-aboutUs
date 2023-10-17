@@ -4,10 +4,9 @@ import { compile, templates } from 'core/js/reactHelpers';
 export default function AboutUs (props) {
     const {
         _graphic,
-        headline
-    } = props
-
-    console.log('test')
+        headline,
+        _aboutUsItems
+    } = props?.model
 
     return (
         <div className='aboutus__inner'>
@@ -17,13 +16,17 @@ export default function AboutUs (props) {
                     <img src={_graphic.src} alt={_graphic.alt}/>
                 }
                 <div className='aboutus__headline'>
-                    {console.log('test', props)}
-                    <div className='aboutus__headline-inner' style={{width: _graphic.src ? auto : '100%'}}>
-                        {compile(headline)}
+                    <div className='aboutus__headline-inner' style={{width: (_graphic?.src ?? '100%')}}>
+                        {headline}
                     </div>
                 </div>
             </div>
             <div className='aboutus__items-container' role='list'>
+              {_aboutUsItems.map((item) => {
+                return (
+                  <templates.aboutUsItem item={item}/>
+                )
+              })}
             </div>
         </div>
     )

@@ -2,17 +2,18 @@ import React from 'react';
 
 export default function AboutUsSocialLinks (props) {
     const {
-      _link,
-      _service
+      socialLinks
     } = props
 
     return (
       <div className='aboutus__sociallinks' role='list'>
-        {this.map(() => {
-          if (_link){
-            <a href={_link} className={`icon icon-${lowercase(_service)}`}
-              target='_blank' title={`Follow us on ${_service}`} aria-label={`Follow us on ${_service}`}>
-            </a>    
+        {socialLinks.map((socialLink) => {
+          if (socialLink._link){
+            return (
+              <a href={socialLink._link} className={`icon icon-${socialLink._service?.toLowerCase()}`}
+                target='_blank' title={`Follow us on ${socialLink._service}`} aria-label={`Follow us on ${socialLink._service}`}>
+              </a>
+            )
           }})}
       </div>
     )

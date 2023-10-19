@@ -1,12 +1,13 @@
 import React from 'react';
-import { compile, templates } from 'core/js/reactHelpers';
+import { templates } from 'core/js/reactHelpers';
 
 export default function AboutUs (props) {
     const {
         _graphic,
         headline,
-        _aboutUsItems
-    } = props?.model
+        _aboutUsItems,
+        _socialLinks
+    } = props
 
     return (
         <div className='aboutus__inner'>
@@ -24,9 +25,10 @@ export default function AboutUs (props) {
             <div className='aboutus__items-container' role='list'>
               {_aboutUsItems.map((item) => {
                 return (
-                  <templates.aboutUsItem item={item}/>
+                  <templates.aboutUsItem {...item}/>
                 )
               })}
+              <templates.aboutUsSocialLinks socialLinks={_socialLinks}/>
             </div>
         </div>
     )

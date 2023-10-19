@@ -5,37 +5,38 @@
  * Code was based on adapt-contrib-glossary and adapt-contrib-resources
  */
 
-define([
-    'core/js/adapt'
-], function(Adapt) {
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { templates } from 'core/js/reactHelpers';
 
-    var AboutUsSocialLinksView = Backbone.View.extend({
+class AboutUsSocialLinksView extends Backbone.View{
+  className() {
+    return "aboutus__item"
+  }
 
-        className: "aboutus__item",
+  attributes() {
+    return {
+      role: 'listitem'
+    }
+  }
 
-        attributes: {
-            role: 'listitem'
-        },
+  initialize() {
+      this.render();
+  }
 
-        initialize: function() {
-            this.render();
-        },
+  render() {
+    ReactDOM.render(<templates.aboutUsSocialLinks {...data} />, this.el);
 
-        render: function() {
-            _.defer(_.bind(function() {
-                this.postRender();
-            }, this));
-            return this;
-        },
+    _.defer(_.bind(function() {
+        this.postRender();
+    }, this));
+    return this;
+  }
 
-        postRender: function() {
-            this.listenTo(Adapt, 'drawer:openedItemView', this.remove);
-            this.listenTo(Adapt, 'drawer:triggerCustomView', this.remove);
-        }
+  postRender() {
+    this.listenTo(Adapt, 'drawer:openedItemView', this.remove);
+    this.listenTo(Adapt, 'drawer:triggerCustomView', this.remove);
+  }
+}
 
-    });
-
-    AboutUsSocialLinksView.template = 'aboutUsSocialLinks.jsx';
-
-    return AboutUsSocialLinksView;
-});
+export default AboutUsSocialLinksView;

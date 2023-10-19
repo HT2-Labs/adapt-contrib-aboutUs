@@ -10,7 +10,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { templates } from 'core/js/reactHelpers';
 import AboutUsItemView from './adapt-aboutUsItemView';
-import SocialLinksView from './adapt-aboutUsSocialLinksView';
+import AboutUsSocialLinksView from './adapt-aboutUsSocialLinksView';
 
 class AboutUsView extends Backbone.View{
   className() {
@@ -23,12 +23,7 @@ class AboutUsView extends Backbone.View{
   }
 
   render() {
-    const data = {
-      ...this,
-      model: this.model.toJSON()
-    };
-
-    ReactDOM.render(<templates.aboutUs {...data} />, this.el);
+    ReactDOM.render(<templates.aboutUs {...this.model.toJSON()} />, this.el);
 
     _.defer(() => {
       Adapt.trigger('view:render', this);
@@ -44,7 +39,7 @@ class AboutUsView extends Backbone.View{
         var itemView = new AboutUsItemView({model: item});
         itemView.$el.appendTo($aboutUsItemContainer);
       }, this);
-      new SocialLinksView({model: Adapt.course.get('_aboutUs')._socialLinks})
+      new AboutUsSocialLinksView({model: Adapt.course.get('_aboutUs')._socialLinks})
         .$el.appendTo($aboutUsItemContainer);
     }
   }

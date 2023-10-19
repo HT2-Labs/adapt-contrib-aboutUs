@@ -1,18 +1,32 @@
-import React from 'react';
-import { classes } from 'core/js/reactHelpers';
+import React, { useState } from 'react';
+import { classes, compile, html } from 'core/js/reactHelpers';
 
 export default function AboutUsItem (props) {
     const {
         className,
         title,
         description
-    } = props?.item
+    } = props
 
-    console.log(props)
+    const [descriptionOpen, setDescription] = useState(false)
+
+    function onAboutUsItemClicked(event) {
+      event && event.preventDefault();
+      // Adapt.trigger('aboutUs:descriptionOpen', this.model.cid);
+      toggleDescription()
+    }
+  
+    function toggleDescription() {
+      setDescription(!descriptionOpen)
+    }
 
     return (
-        <div>
-            <button className={classes(['aboutus__item-btn', 'drawer__item-btn', 'js-aboutus-item-topic-click'], className ? className : '')} aria-expanded='false' aria-label='{title}'>
+        <div className='aboutus__item' role='listitem'>
+            <button
+              className={classes(['aboutus__item-btn', 'drawer__item-btn', 'js-aboutus-item-topic-click'], className ? className : '', descriptionOpen ? 'is-selected' : null)}
+              aria-expanded={descriptionOpen}
+              aria-label={`${title}`}
+              onClick={(e) => onAboutUsItemClicked(e)}>
                 <div className='aboutus__item-title drawer__item-title'>
                     <div className='aboutus__item-title-inner drawer__item-title-inner'>
                         {title}
@@ -20,9 +34,11 @@ export default function AboutUsItem (props) {
                 </div>
             </button>
 
-            <div className='aboutus__item-body drawer__item-body' role='region' aria-label={title}>
+            <div className={classes(['aboutus__item-body', 'drawer__item-body'], !descriptionOpen ? 'u-display-none' : null)} role='region' aria-label={title}>
                 <div className='aboutus__item-body-inner drawer__item-body-inner'>
-                    {description}
+                    { 
+                      descriptionOpen ? html(compile(description)) : ''
+                    }
                 </div>
             </div>
         </div>

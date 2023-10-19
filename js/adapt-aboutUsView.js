@@ -9,8 +9,6 @@ import Adapt from 'core/js/adapt';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { templates } from 'core/js/reactHelpers';
-import AboutUsItemView from './adapt-aboutUsItemView';
-import AboutUsSocialLinksView from './adapt-aboutUsSocialLinksView';
 
 class AboutUsView extends Backbone.View{
   className() {
@@ -31,16 +29,6 @@ class AboutUsView extends Backbone.View{
     });
 
     return this;
-    }
-
-    renderAboutUsItems() {
-      var $aboutUsItemContainer = this.$('.aboutus__items-container').empty();
-      _.each(this.collection.models, function(item, index) {
-        var itemView = new AboutUsItemView({model: item});
-        itemView.$el.appendTo($aboutUsItemContainer);
-      }, this);
-      new AboutUsSocialLinksView({model: Adapt.course.get('_aboutUs')._socialLinks})
-        .$el.appendTo($aboutUsItemContainer);
     }
   }
 

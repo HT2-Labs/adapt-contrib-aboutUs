@@ -11,22 +11,6 @@ import ReactDOM from 'react-dom';
 import { templates } from 'core/js/reactHelpers';
 
 class AboutUsItemView extends Backbone.View{
-  className() {
-    return "aboutus__item"
-  }
-
-  attributes() {
-    return {
-      role: 'listitem'
-    }
-  }
-
-  events() {
-    return {
-      'click .js-aboutus-item-topic-click': 'onAboutUsItemClicked'
-    }
-  }
-
   initialize() {
     this.listenTo(Adapt, {
         'remove drawer:closed': this.remove,
@@ -59,25 +43,6 @@ class AboutUsItemView extends Backbone.View{
       'drawer:openedItemView': this.remove,
       'drawer:triggerCustomView': this.remove
     });
-  }
-
-  onAboutUsItemClicked(event) {
-    event && event.preventDefault();
-    // Adapt.trigger('aboutUs:descriptionOpen', this.model.cid);
-    this.descriptionOpen()
-  }
-
-  descriptionOpen(viewId) {
-    const descriptionCurrentlyOpen = this.model.get('_isDescriptionOpen')
-    this.model.set('_isDescriptionOpen', !descriptionCurrentlyOpen)
-  }
-
-  onAboutUsItemVisibilityChange() {
-      if (this.model.get('_isVisible')) {
-          this.$el.removeClass('u-display-none');
-      } else {
-          this.$el.addClass('u-display-none');
-      }
   }
 };
 

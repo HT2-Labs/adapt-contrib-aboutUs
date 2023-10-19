@@ -12,18 +12,13 @@ export default function AboutUsItem (props) {
 
     function onAboutUsItemClicked(event) {
       event && event.preventDefault();
-      // Adapt.trigger('aboutUs:descriptionOpen', this.model.cid);
-      toggleDescription()
-    }
-  
-    function toggleDescription() {
       setDescription(!descriptionOpen)
     }
 
     return (
         <div className='aboutus__item' role='listitem'>
             <button
-              className={classes(['aboutus__item-btn', 'drawer__item-btn', 'js-aboutus-item-topic-click'], className ? className : '', descriptionOpen ? 'is-selected' : null)}
+              className={classes(['aboutus__item-btn', 'drawer__item-btn', 'js-aboutus-item-topic-click'], className ? className : '', descriptionOpen ? 'is-selected' : '')}
               aria-expanded={descriptionOpen}
               aria-label={`${title}`}
               onClick={(e) => onAboutUsItemClicked(e)}>
@@ -34,7 +29,7 @@ export default function AboutUsItem (props) {
                 </div>
             </button>
 
-            <div className={classes(['aboutus__item-body', 'drawer__item-body'], !descriptionOpen ? 'u-display-none' : null)} role='region' aria-label={title}>
+            <div className={classes(['aboutus__item-body', 'drawer__item-body'], !descriptionOpen ? 'u-display-none' : '')} role='region' aria-label={title}>
                 <div className='aboutus__item-body-inner drawer__item-body-inner'>
                     { 
                       descriptionOpen ? html(compile(description)) : ''

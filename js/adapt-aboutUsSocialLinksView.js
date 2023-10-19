@@ -10,16 +10,6 @@ import ReactDOM from 'react-dom';
 import { templates } from 'core/js/reactHelpers';
 
 class AboutUsSocialLinksView extends Backbone.View{
-  className() {
-    return "aboutus__item"
-  }
-
-  attributes() {
-    return {
-      role: 'listitem'
-    }
-  }
-
   initialize() {
       this.render();
   }

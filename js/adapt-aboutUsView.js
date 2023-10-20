@@ -25,7 +25,6 @@ class AboutUsView extends Backbone.View{
 
     _.defer(() => {
       Adapt.trigger('view:render', this);
-      this.listenTo(Adapt, 'drawer:closed', this.remove);
     });
 
     return this;

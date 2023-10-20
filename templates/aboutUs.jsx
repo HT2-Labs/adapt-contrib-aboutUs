@@ -23,12 +23,8 @@ export default function AboutUs (props) {
                 </div>
             </div>
             <div className='aboutus__items-container' role='list'>
-              {_aboutUsItems.map((item) => {
-                return (
-                  <templates.aboutUsItem {...item}/>
-                )
-              })}
-              <templates.aboutUsSocialLinks socialLinks={_socialLinks}/>
+                {_aboutUsItems.map((item) => <templates.aboutUsItem {...item}/>)}
+                <templates.aboutUsSocialLinks socialLinks={_socialLinks}/>
             </div>
         </div>
     )

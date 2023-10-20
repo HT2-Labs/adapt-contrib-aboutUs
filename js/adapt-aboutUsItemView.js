@@ -13,8 +13,10 @@ import { templates } from 'core/js/reactHelpers';
 class AboutUsItemView extends Backbone.View{
   initialize() {
     this.listenTo(Adapt, {
-        'remove drawer:closed': this.remove,
-        'aboutUs:descriptionOpen': this.descriptionOpen
+      'remove drawer:closed': this.remove,
+      'aboutUs:descriptionOpen': this.descriptionOpen,
+      'drawer:openedItemView': this.remove,
+      'drawer:triggerCustomView': this.remove
     });
     this.setupModel();
     this.listenTo(this.model, 'change:_isVisible', this.onAboutUsItemVisibilityChange);
@@ -29,20 +31,13 @@ class AboutUsItemView extends Backbone.View{
   }
   
   render() {
-    ReactDOM.render(<templates.aboutUsItem {...data} />, this.el);
+    ReactDOM.render(<templates.aboutUsItem/>, this.el);
 
     _.defer(_.bind(function() {
       this.postRender();
     }, this));
 
     return this;
-  }
-
-  postRender() {
-    this.listenTo(Adapt, {
-      'drawer:openedItemView': this.remove,
-      'drawer:triggerCustomView': this.remove
-    });
   }
 };
 

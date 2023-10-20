@@ -15,7 +15,7 @@ class AboutUsSocialLinksView extends Backbone.View{
   }
 
   render() {
-    ReactDOM.render(<templates.aboutUsSocialLinks {...data} />, this.el);
+    ReactDOM.render(<templates.aboutUsSocialLinks/>, this.el);
 
     _.defer(_.bind(function() {
         this.postRender();

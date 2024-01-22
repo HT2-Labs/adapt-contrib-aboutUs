@@ -7,15 +7,17 @@ export default function AboutUsSocialLinks (props) {
 
   return (
     <div className='aboutus__sociallinks' role='list'>
-      {socialLinks.map((socialLink) => {
-        const returnedHtml = !socialLink._link ?  '' : <> {
-            <a href={socialLink._link} className={`icon icon-${socialLink._service?.toLowerCase()}`}
-              target='_blank' title={`Follow us on ${socialLink._service}`} aria-label={`Follow us on ${socialLink._service}`}>
-            </a>
-          }
-          </>
-        return returnedHtml
-      })}
+      {socialLinks.map((socialLink) => (
+        !socialLink._link ? '' : (
+          <a
+            href={socialLink._link}
+            className={`icon icon-${socialLink._service?.toLowerCase()}`}
+            target='_blank'
+            title={`Follow us on ${socialLink._service}`}
+            aria-label={`Follow us on ${socialLink._service}`}
+          ></a>
+        )
+      ))}
     </div>
   )
 }

@@ -8,40 +8,43 @@
 import Adapt from 'core/js/adapt'
 import AboutUsView from './adapt-aboutUsView'
 
-function setupAboutUs(aboutUsModel, aboutUsItems, socialLinks) {
+export default class AboutUs extends Backbone.Controller {
+  initialize() {
+    this.listenTo(Adapt, 'app:dataReady', this.initAboutUs);
+  }
 
+  setupAboutUs(aboutUsModel, aboutUsItems, socialLinks) {
     const aboutUsModel = new Backbone.Model(aboutUsModel);
     const itemsCollection = new Backbone.Collection(aboutUsItems);
     const socialLinksCollection = new Backbone.Collection(socialLinks);
 
     const options = {
-        model: aboutUsModel,
-        collection: itemsCollection,
-        sociallinks: socialLinksCollection
+      model: aboutUsModel,
+      collection: itemsCollection,
+      sociallinks: socialLinksCollection
     };
 
     Adapt.on('aboutUs:showAboutUs', function() {
-        Adapt.drawer.triggerCustomView(new AboutUsView(options).$el);
+      Adapt.drawer.triggerCustomView(new AboutUsView(options).$el);
     });
-}
+  }
 
-function initAboutUs() {
+  initAboutUs() {
     const courseAboutUs = Adapt.course.get('_aboutUs');
 
     if (!courseAboutUs || !courseAboutUs._isEnabled) {
-        return;
+      return;
     }
 
     const drawerObject = {
-        title: courseAboutUs.title,
-        description: courseAboutUs.description,
-        className: 'is-aboutus',
-        drawerOrder: courseAboutUs._drawerOrder || 0
+      title: courseAboutUs.title,
+      description: courseAboutUs.description,
+      className: 'is-aboutus',
+      drawerOrder: courseAboutUs._drawerOrder || 0
     };
 
     Adapt.drawer.addItem(drawerObject, 'aboutUs:showAboutUs');
 
     setupAboutUs(courseAboutUs, courseAboutUs._aboutUsItems, courseAboutUs._socialLinks);
+  }
 }
-
-Adapt.on('app:dataReady', initAboutUs);

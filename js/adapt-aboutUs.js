@@ -12,13 +12,13 @@ export default class AboutUs extends Backbone.Controller {
   initialize() {
     this.listenTo(Adapt, 'app:dataReady', this.initAboutUs);
   }
-
+  
   setupAboutUs(aboutUsModel, aboutUsItems, socialLinks) {
-    const aboutUsModel = new Backbone.Model(aboutUsModel);
-    const itemsCollection = new Backbone.Collection(aboutUsItems);
-    const socialLinksCollection = new Backbone.Collection(socialLinks);
+    var aboutUsModel = new Backbone.Model(aboutUsModel);
+    var itemsCollection = new Backbone.Collection(aboutUsItems);
+    var socialLinksCollection = new Backbone.Collection(socialLinks);
 
-    const options = {
+    var options = {
       model: aboutUsModel,
       collection: itemsCollection,
       sociallinks: socialLinksCollection
@@ -30,13 +30,13 @@ export default class AboutUs extends Backbone.Controller {
   }
 
   initAboutUs() {
-    const courseAboutUs = Adapt.course.get('_aboutUs');
+    var courseAboutUs = Adapt.course.get('_aboutUs');
 
     if (!courseAboutUs || !courseAboutUs._isEnabled) {
       return;
     }
 
-    const drawerObject = {
+    var drawerObject = {
       title: courseAboutUs.title,
       description: courseAboutUs.description,
       className: 'is-aboutus',
@@ -47,4 +47,4 @@ export default class AboutUs extends Backbone.Controller {
 
     setupAboutUs(courseAboutUs, courseAboutUs._aboutUsItems, courseAboutUs._socialLinks);
   }
-}
+};

@@ -17,7 +17,7 @@ class AboutUs extends Backbone.Controller {
     const aboutUsModel = new Backbone.Model(model);
     const itemsCollection = new Backbone.Collection(model.aboutUsItems);
     const socialLinksCollection = new Backbone.Collection(model.socialLinks);
-test
+
     const options = {
       model: aboutUsModel,
       collection: itemsCollection,

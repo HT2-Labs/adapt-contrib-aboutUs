@@ -8,17 +8,17 @@
 import Adapt from 'core/js/adapt'
 import AboutUsView from './adapt-aboutUsView'
 
-export default class AboutUs extends Backbone.Controller {
+class AboutUs extends Backbone.Controller {
   initialize() {
     this.listenTo(Adapt, 'app:dataReady', this.initAboutUs);
   }
   
-  setupAboutUs(aboutUsModel, aboutUsItems, socialLinks) {
-    var aboutUsModel = new Backbone.Model(aboutUsModel);
-    var itemsCollection = new Backbone.Collection(aboutUsItems);
-    var socialLinksCollection = new Backbone.Collection(socialLinks);
-
-    var options = {
+  setupAboutUs(model) {
+    const aboutUsModel = new Backbone.Model(model);
+    const itemsCollection = new Backbone.Collection(model.aboutUsItems);
+    const socialLinksCollection = new Backbone.Collection(model.socialLinks);
+test
+    const options = {
       model: aboutUsModel,
       collection: itemsCollection,
       sociallinks: socialLinksCollection
@@ -30,21 +30,25 @@ export default class AboutUs extends Backbone.Controller {
   }
 
   initAboutUs() {
-    var courseAboutUs = Adapt.course.get('_aboutUs');
+    const courseAboutUs = Adapt.course.get('_aboutUs');
 
-    if (!courseAboutUs || !courseAboutUs._isEnabled) {
-      return;
-    }
+    if (!courseAboutUs?._isEnabled) return;
 
-    var drawerObject = {
-      title: courseAboutUs.title,
-      description: courseAboutUs.description,
+    const { title, description, _drawerOrder = 0 } = courseAboutUs
+
+    const drawerObject = {
+      title,
+      description,
       className: 'is-aboutus',
-      drawerOrder: courseAboutUs._drawerOrder || 0
+      drawerOrder: _drawerOrder
     };
 
     Adapt.drawer.addItem(drawerObject, 'aboutUs:showAboutUs');
 
-    setupAboutUs(courseAboutUs, courseAboutUs._aboutUsItems, courseAboutUs._socialLinks);
+    this.setupAboutUs(courseAboutUs);
   }
 };
+
+const aboutUs = new AboutUs();
+
+export default aboutUs

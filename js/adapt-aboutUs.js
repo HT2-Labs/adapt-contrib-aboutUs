@@ -5,47 +5,50 @@
  * Code was based on adapt-contrib-glossary and adapt-contrib-resources
  */
 
-define([
-    'core/js/adapt',
-    './adapt-aboutUsView'
-], function(Adapt, AboutUsView) {
+import Adapt from 'core/js/adapt'
+import AboutUsView from './adapt-aboutUsView'
 
-    function setupAboutUs(aboutUsModel, aboutUsItems, socialLinks) {
+class AboutUs extends Backbone.Controller {
+  initialize() {
+    this.listenTo(Adapt, 'app:dataReady', this.initAboutUs);
+  }
+  
+  setupAboutUs(model) {
+    const aboutUsModel = new Backbone.Model(model);
+    const itemsCollection = new Backbone.Collection(model.aboutUsItems);
+    const socialLinksCollection = new Backbone.Collection(model.socialLinks);
 
-        var aboutUsModel = new Backbone.Model(aboutUsModel);
-        var itemsCollection = new Backbone.Collection(aboutUsItems);
-        var socialLinksCollection = new Backbone.Collection(socialLinks);
+    const options = {
+      model: aboutUsModel,
+      collection: itemsCollection,
+      sociallinks: socialLinksCollection
+    };
 
-        var options = {
-            model: aboutUsModel,
-            collection: itemsCollection,
-            sociallinks: socialLinksCollection
-        };
+    Adapt.on('aboutUs:showAboutUs', function() {
+      Adapt.drawer.triggerCustomView(new AboutUsView(options).$el);
+    });
+  }
 
-        Adapt.on('aboutUs:showAboutUs', function() {
-            Adapt.drawer.triggerCustomView(new AboutUsView(options).$el);
-        });
-    }
+  initAboutUs() {
+    const courseAboutUs = Adapt.course.get('_aboutUs');
 
-    function initAboutUs() {
-        var courseAboutUs = Adapt.course.get('_aboutUs');
+    if (!courseAboutUs?._isEnabled) return;
 
-        if (!courseAboutUs || !courseAboutUs._isEnabled) {
-            return;
-        }
+    const { title, description, _drawerOrder = 0 } = courseAboutUs
 
-        var drawerObject = {
-            title: courseAboutUs.title,
-            description: courseAboutUs.description,
-            className: 'is-aboutus',
-            drawerOrder: courseAboutUs._drawerOrder || 0
-        };
+    const drawerObject = {
+      title,
+      description,
+      className: 'is-aboutus',
+      drawerOrder: _drawerOrder
+    };
 
-        Adapt.drawer.addItem(drawerObject, 'aboutUs:showAboutUs');
+    Adapt.drawer.addItem(drawerObject, 'aboutUs:showAboutUs');
 
-        setupAboutUs(courseAboutUs, courseAboutUs._aboutUsItems, courseAboutUs._socialLinks);
-    }
+    this.setupAboutUs(courseAboutUs);
+  }
+};
 
-    Adapt.on('app:dataReady', initAboutUs);
+const aboutUs = new AboutUs();
 
-});
+export default aboutUs

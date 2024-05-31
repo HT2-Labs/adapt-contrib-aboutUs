@@ -5,47 +5,30 @@
  * Code was based on adapt-contrib-glossary and adapt-contrib-resources
  */
 
-define([
-    'core/js/adapt',
-    './adapt-aboutUsItemView',
-    './adapt-aboutUsSocialLinksView'
-], function(Adapt, AboutUsItemView, SocialLinksView) {
+import Adapt from 'core/js/adapt';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { templates } from 'core/js/reactHelpers';
 
-    var AboutUsView = Backbone.View.extend({
+class AboutUsView extends Backbone.View{
+  className() {
+    return 'aboutus'
+  }
 
-        className: "aboutus",
+  initialize() {
+    this.listenTo(Adapt, 'remove drawer:closed', this.remove);
+    this.render()
+  }
 
-        initialize: function() {
-            this.listenTo(Adapt, 'remove drawer:closed', this.remove);
-            this.render();
-        },
+  render() {
+    ReactDOM.render(<templates.aboutUs {...this.model.toJSON()} />, this.el);
 
-        render: function() {
-            var template = Handlebars.templates["aboutUs"];
-            this.$el.html(template(this.model.toJSON()));
-            this.renderAboutUsItems();
-            _.defer(_.bind(function() {
-                this.postRender();
-            }, this));
-            return this;
-        },
-
-        renderAboutUsItems: function() {
-            var $aboutUsItemContainer = this.$('.aboutus__items-container').empty();
-            _.each(this.collection.models, function(item, index) {
-                var itemView = new AboutUsItemView({model: item});
-                itemView.$el.appendTo($aboutUsItemContainer);
-            }, this);
-            new SocialLinksView({model: Adapt.course.get('_aboutUs')._socialLinks})
-                .$el.appendTo($aboutUsItemContainer);
-        },
-
-        postRender: function() {
-            this.listenTo(Adapt, 'drawer:openedItemView', this.remove);
-            this.listenTo(Adapt, 'drawer:triggerCustomView', this.remove);
-        }
-
+    _.defer(() => {
+      Adapt.trigger('view:render', this);
     });
 
-    return AboutUsView;
-});
+    return this;
+    }
+  }
+
+export default AboutUsView;
